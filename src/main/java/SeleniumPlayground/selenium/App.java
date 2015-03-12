@@ -1,11 +1,12 @@
 package SeleniumPlayground.selenium;
 
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
 
-    private final static Logger LOGGER = Logger.getLogger(App.class.getName());
+    private final static Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main( String[] args ){
         new App().start();
@@ -13,10 +14,19 @@ public class App {
 
     private void start(){
 
-        for(int i = 0; i < 10; i++){
+//        for(int i = 0; i < 10; i++){
+//
+//            WebDriveThread thread = new WebDriveThread("thread"+i);
+//            thread.start();
+//        }
 
-            WebDriveThread thread = new WebDriveThread("thread"+i);
-            thread.start();
-        }
+        System.out.println("logger enabled="+logger.isDebugEnabled());
+logger.
+
+        logger.warn("This is warn : ");
+        logger.error("This is error : ");
+        logger.warn("This is warn : ");
+        logger.error("This is error : ");
+
     }
 }
