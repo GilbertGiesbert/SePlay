@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+
+	<Properties>
+		<Property name="log-path">logs/</Property>
+	</Properties>
+	
+	<Appenders>
+	
+		<Console name="console-log" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
+			</PatternLayout>
+		</Console>
+	
+		<RollingFile name="RollingFile"
+					 fileName="${log-path}/myexample.log"
+					 filePattern="${log-path}/myexample-%i.log" >
+					 
+			<PatternLayout>
+				<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
+			</PatternLayout>
+			
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4"/>
+		</RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="playground" level="debug" additivity="false">
+			<appender-ref ref="RollingFile" level="debug"/>
+			<appender-ref ref="console-log" level="debug"/>
+		</Logger>
+	
+		<Root level="debug" additivity="false">
+			<AppenderRef ref="RollingFile"/>
+			<AppenderRef ref="console-log"/>
+		</Root>
+	</Loggers>
+</Configuration>

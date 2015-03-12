@@ -1,4 +1,4 @@
-package SeleniumPlayground.selenium;
+package playground.selenium;
 
 
 import org.slf4j.Logger;
@@ -19,9 +19,6 @@ public class App {
 //            WebDriveThread thread = new WebDriveThread("thread"+i);
 //            thread.start();
 //        }
-
-        System.out.println("logger enabled="+logger.isDebugEnabled());
-logger.
 
         logger.warn("This is warn : ");
         logger.error("This is error : ");

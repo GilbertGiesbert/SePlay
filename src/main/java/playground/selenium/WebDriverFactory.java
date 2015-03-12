@@ -1,4 +1,4 @@
-package SeleniumPlayground.selenium;
+package playground.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
