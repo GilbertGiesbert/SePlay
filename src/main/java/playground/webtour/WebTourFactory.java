@@ -1,13 +1,16 @@
 package playground.webtour;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.ListResourceBundle;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
- * Created with IntelliJ IDEA.
+ * Copyright mediaworx berlin AG, Berlin, Germany
  * User: joern
  * Date: 12.03.15
  * Time: 17:40
@@ -15,33 +18,69 @@ import java.util.ListResourceBundle;
  */
 public class WebTourFactory {
 
-    public static WebTour[] buildWebTour(){
+    private final static Logger LOGGER = LoggerFactory.getLogger(WebTourFactory.class);
 
-//        ListResourceBundle.
-//
-//        WebTourData tourData = new WebTourData(tourType);
-//        if(tourData==null)
-//            return null;
-//
-//        WebTour webTour = null;
-//        switch (tourType){
-//            case AMAZON:
-//                webTour = new AmazonWebTour(crawlerName, driver, tourData);
-//                break;
-//        }
-//        return webTour;
+    public static List<WebTour> buildTourList(){
 
-        getTourTypes();
+        List<WebTour> tourList = new ArrayList<WebTour>();
 
-        return null;
+        String tourDataFolderPath = "tourData";
+        String prefixTourDataFile = "tourData_";
+        String fileEndingTourDataFile = ".properties";
+
+        File tourDataFolder = null;
+
+        try{
+            ClassLoader classLoader = WebTourFactory.class.getClassLoader();
+            tourDataFolder = new File(classLoader.getResource(tourDataFolderPath).getFile());
+        }catch (Exception e){
+            LOGGER.debug("failed to load tourData from path ["+tourDataFolderPath+"]");
+        }
+
+        if(tourDataFolder != null){
+
+            File tourFile[] = tourDataFolder.listFiles();
+
+            for(File file: tourFile){
+                if(file.getName().startsWith(prefixTourDataFile) && file.getName().endsWith(fileEndingTourDataFile)){
+
+                    Properties props = new Properties();
+                    try {
+                        FileInputStream fis = new FileInputStream(file);
+                        props.load(fis);
+                    } catch (Exception e) {
+                        LOGGER.debug("failed to load tourData from file ["+file.getName()+"]");
+                    }
+
+                    if(props != null){
+
+                        String tourName = file.getName();
+                        tourName = tourName.replace(prefixTourDataFile, "");
+                        tourName = tourName.replace(fileEndingTourDataFile, "");
+
+                        TourData tourData = new TourData(props);
+
+                        WebTour webTour = buildWebTour(tourName, tourData);
+                        if(webTour==null){
+                            LOGGER.debug("failed to get WebTour class for name ["+tourName+"]");
+                        }else{
+                            tourList.add(webTour);
+                        }
+                    }
+                }
+            }
+        }
+        return tourList;
     }
 
-    private static String[] getTourTypes(){
+    private static WebTour buildWebTour(String tourName, TourData tourData){
 
-        ClassLoader classLoader = WebTourFactory.class.getClassLoader();
-        File folder = new File(classLoader.getResource("tourData").getFile());
+        WebTour webTour = null;
 
-        return folder.list();
+        if("amazon".equals(tourName)){
+            webTour = new AmazonWebTour(tourName, tourData);
+        }
 
+        return webTour;
     }
 }

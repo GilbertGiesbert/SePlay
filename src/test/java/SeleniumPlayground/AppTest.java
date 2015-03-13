@@ -1,4 +1,4 @@
-package SeleniumPlayground;
+package seleniumplayground;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

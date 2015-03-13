@@ -5,11 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import playground.selenium.WebDriverFactory;
 import playground.webtour.WebTour;
-import playground.webtour.WebTourFactory;
-import playground.webtour.WebTourType;
 
 /**
- * Created with IntelliJ IDEA.
+ * Copyright mediaworx berlin AG, Berlin, Germany
  * User: joern
  * Date: 11.03.15
  * Time: 18:36
@@ -19,46 +17,39 @@ public class Crawler extends Thread{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(Crawler.class);
 
-    private int id;
-    private WebTourType tourType;
+    private WebTour webTour;
 
-    public Crawler(int id, WebTourType tourType){
-        super(Crawler.class.getSimpleName()+"_"+id);
-        this.id = id;
-        this.tourType = tourType;
+    public Crawler(String name, WebTour webTour){
+        super(name);
+        this.webTour = webTour;
     }
 
     public void run(){
-        LOGGER.info("-----------------------------------");
-        LOGGER.debug("["+getName()+"] on ["+tourType+"] started");
+        LOGGER.debug("started crawler");
 
         WebDriver driver = WebDriverFactory.buildWebDriver();
         if(driver==null){
-            LOGGER.debug("["+getName()+"] failed to build driver, will skip "+tourType);
+            LOGGER.debug("failed to build driver");
             return;
         }
 
-        WebTour tour = null;
         boolean run = true;
         int remainingRestarts = 3;
 
         while(run && remainingRestarts > 0){
 
             try{
-//                tour = WebTourFactory.buildWebTour();
-                if(tour!=null)
-                    tour.start();
-
+                webTour.start(driver);
                 run = false;
 
             }catch(Exception e){
-                LOGGER.debug("["+getName()+"] on ["+tourType+"] crashed");
+                LOGGER.debug("crashed on web tour", e);
 
                 if(isSeleniumGridConnectionProblems(e)){
 
                     remainingRestarts--;
-                    LOGGER.debug("["+getName()+"] on ["+tourType+"]: restarting due to seleniumGridConnectionProblems");
-                    LOGGER.debug("["+getName()+"] on ["+tourType+"]: remaining restarts: "+remainingRestarts);
+                    LOGGER.debug("restarting wen tour due to seleniumGridConnectionProblems");
+                    LOGGER.debug("remaining restarts: "+remainingRestarts);
 
                 }else{
                     run = false;
@@ -69,7 +60,7 @@ public class Crawler extends Thread{
         if(driver != null)
             driver.quit();
 
-        LOGGER.debug("["+getName()+"] on ["+tourType+"] finished");
+        LOGGER.debug("finished crawler");
     }
 
     private boolean isSeleniumGridConnectionProblems(Exception e) {

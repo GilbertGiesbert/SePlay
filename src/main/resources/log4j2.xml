@@ -9,7 +9,7 @@
 	
 		<Console name="console-log" target="SYSTEM_OUT">
 			<PatternLayout>
-				<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS} - %c{1}: %m%n</pattern>
+				<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS} - [%t] %c{1}: %m%n</pattern>
 			</PatternLayout>
 		</Console>
 	
@@ -29,7 +29,7 @@
 	</Appenders>
 	
 	<Loggers>
-        <Logger name="playground.selenium" level="debug" additivity="false">
+        <Logger name="playground" level="debug" additivity="false">
             <appender-ref ref="console-log" level="debug"/>
             <appender-ref ref="RollingFile" level="debug"/>
         </Logger>

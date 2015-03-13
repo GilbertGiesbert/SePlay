@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created with IntelliJ IDEA.
+ * Copyright mediaworx berlin AG, Berlin, Germany
  * User: joern
  * Date: 11.03.15
  * Time: 18:39
@@ -16,10 +16,10 @@ public abstract class WebTour {
     private final static Logger LOGGER = LoggerFactory.getLogger(WebTour.class);
 
     protected WebDriver driver;
-    protected WebTourData tourData;
+    protected TourData tourData;
     protected String tourName;
 
-    public WebTour(String tourName, WebTourData tourData){
+    public WebTour(String tourName, TourData tourData){
         this.tourName = tourName;
         this.tourData = tourData;
     }
@@ -28,18 +28,20 @@ public abstract class WebTour {
 
         this.driver = driver;
 
-        LOGGER.debug(crawlerName +" on "+ tourName +": started");
+        LOGGER.debug("started tour");
 
         driver.get(tourData.get("loginPage"));
 
         doLogin();
 
-        LOGGER.debug(crawlerName +" on "+ tourName +": finished");
+        String pageSource = driver.getPageSource();
+
+        LOGGER.debug("finished tour");
     }
 
     protected abstract void doLogin();
 
-    public WebDriver getDriver() {
-        return driver;
+    public String getTourName(){
+        return tourName;
     }
 }

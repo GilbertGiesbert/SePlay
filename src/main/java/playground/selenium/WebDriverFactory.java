@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created with IntelliJ IDEA.
+ * Copyright mediaworx berlin AG, Berlin, Germany
  * User: joern
  * Date: 11.03.15
  * Time: 18:43
@@ -23,21 +23,32 @@ public class WebDriverFactory {
 
     public static WebDriver buildWebDriver(){
 
-        DesiredCapabilities capability = DesiredCapabilities.firefox();
+        WebDriver driver;
 
-        WebDriver driver = null;
-//        try {
-//            return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
-//        } catch (MalformedURLException e) {
-//            LOGGER.debug("problems building WebDriver");
-//            e.printStackTrace();
-//        }
-
-        driver = new FirefoxDriver();
+        boolean useLocal = true;
+        if(useLocal)
+            driver = new FirefoxDriver();
+        else
+            driver = buildRemoteDriver();
 
         LOGGER.debug("started ["+driver.getClass().getSimpleName()+"]");
 
+        driver = new WebDriverWrapper(driver);
 
+        return driver;
+    }
+
+    private static WebDriver buildRemoteDriver(){
+
+        WebDriver driver = null;
+        DesiredCapabilities capability = DesiredCapabilities.firefox();
+
+        try {
+            return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+        } catch (MalformedURLException e) {
+            LOGGER.debug("problems building WebDriver");
+            e.printStackTrace();
+        }
         return driver;
     }
 }
