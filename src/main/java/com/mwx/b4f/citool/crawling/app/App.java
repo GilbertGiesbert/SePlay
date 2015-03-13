@@ -1,10 +1,10 @@
-package playground.app;
+package com.mwx.b4f.citool.crawling.app;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import playground.webtour.WebTour;
-import playground.webtour.WebTourFactory;
+import com.mwx.b4f.citool.crawling.webtour.WebTour;
+import com.mwx.b4f.citool.crawling.webtour.WebTourFactory;
 
 import java.util.List;
 

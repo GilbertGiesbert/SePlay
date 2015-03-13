@@ -1,4 +1,4 @@
-package playground.selenium;
+package com.mwx.b4f.citool.crawling.selenium;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

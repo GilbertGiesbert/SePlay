@@ -29,7 +29,7 @@
 	</Appenders>
 	
 	<Loggers>
-        <Logger name="playground" level="debug" additivity="false">
+        <Logger name="com.mwx.b4f.citool.crawling" level="debug" additivity="false">
             <appender-ref ref="console-log" level="debug"/>
             <appender-ref ref="RollingFile" level="debug"/>
         </Logger>

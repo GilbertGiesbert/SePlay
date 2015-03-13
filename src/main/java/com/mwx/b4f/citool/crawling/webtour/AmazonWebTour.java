@@ -1,4 +1,4 @@
-package playground.webtour;
+package com.mwx.b4f.citool.crawling.webtour;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * Time: 18:39
  * To change this template use File | Settings | File Templates.
  */
-public class AmazonWebTour extends WebTour{
+public class AmazonWebTour extends WebTour {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AmazonWebTour.class);
 

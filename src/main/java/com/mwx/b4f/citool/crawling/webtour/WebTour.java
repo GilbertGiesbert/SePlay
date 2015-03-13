@@ -1,4 +1,4 @@
-package playground.webtour;
+package com.mwx.b4f.citool.crawling.webtour;
 
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;

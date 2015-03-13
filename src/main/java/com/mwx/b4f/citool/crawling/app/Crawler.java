@@ -1,10 +1,10 @@
-package playground.app;
+package com.mwx.b4f.citool.crawling.app;
 
+import com.mwx.b4f.citool.crawling.selenium.WebDriverFactory;
+import com.mwx.b4f.citool.crawling.webtour.WebTour;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import playground.selenium.WebDriverFactory;
-import playground.webtour.WebTour;
 
 /**
  * Copyright mediaworx berlin AG, Berlin, Germany
