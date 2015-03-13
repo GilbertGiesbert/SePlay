@@ -1,11 +1,12 @@
-package playground.selenium;
+package playground.app;
 
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import playground.selenium.webtour.WebTour;
-import playground.selenium.webtour.WebTourFactory;
-import playground.selenium.webtour.WebTourType;
+import playground.selenium.WebDriverFactory;
+import playground.webtour.WebTour;
+import playground.webtour.WebTourFactory;
+import playground.webtour.WebTourType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,7 +45,7 @@ public class Crawler extends Thread{
         while(run && remainingRestarts > 0){
 
             try{
-                tour = WebTourFactory.buildWebTour(getName(), driver, tourType);
+//                tour = WebTourFactory.buildWebTour();
                 if(tour!=null)
                     tour.start();
 

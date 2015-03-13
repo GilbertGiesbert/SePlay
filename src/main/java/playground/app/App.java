@@ -3,8 +3,9 @@ package playground.app;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import playground.selenium.Crawler;
-import playground.selenium.webtour.WebTourType;
+import playground.webtour.WebTourData;
+import playground.webtour.WebTourFactory;
+import playground.webtour.WebTourType;
 
 public class App {
 
@@ -16,10 +17,12 @@ public class App {
 
     private void start(){
 
-        for(int i = 0; i < 1; i++){
+//        for(int i = 0; i < 1; i++){
+//
+//            Crawler thread = new Crawler(i, WebTourType.AMAZON);
+//            thread.start();
+//        }
 
-            Crawler thread = new Crawler(i, WebTourType.AMAZON);
-            thread.start();
-        }
+        WebTourFactory.buildWebTour();
     }
 }

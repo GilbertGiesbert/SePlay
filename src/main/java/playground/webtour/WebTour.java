@@ -1,10 +1,8 @@
-package playground.selenium.webtour;
+package playground.webtour;
 
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ResourceBundle;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,19 +15,18 @@ public abstract class WebTour {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(WebTour.class);
 
+    protected WebDriver driver;
     protected WebTourData tourData;
     protected String tourName;
-    protected String crawlerName;
-    protected WebDriver driver;
 
-    public WebTour(String crawlerName, WebDriver driver, WebTourData tourData){
-        this.crawlerName = crawlerName;
-        this.driver = driver;
+    public WebTour(String tourName, WebTourData tourData){
+        this.tourName = tourName;
         this.tourData = tourData;
-        this.tourName = tourData.get("tourName");
     }
 
-    public void start(){
+    public void start(WebDriver driver){
+
+        this.driver = driver;
 
         LOGGER.debug(crawlerName +" on "+ tourName +": started");
 

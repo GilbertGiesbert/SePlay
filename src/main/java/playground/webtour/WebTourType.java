@@ -1,4 +1,4 @@
-package playground.selenium.webtour;
+package playground.webtour;
 
 /**
  * Created with IntelliJ IDEA.

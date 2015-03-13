@@ -36,7 +36,7 @@ public class WebDriverFactory {
         driver = new FirefoxDriver();
 
         LOGGER.debug("started ["+driver.getClass().getSimpleName()+"]");
-        ThreadLogger.log("testi ", LOGGER);
+
 
         return driver;
     }
